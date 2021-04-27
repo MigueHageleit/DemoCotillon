@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${titulo}">TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+        <link href="/css/estilo.css" rel="stylesheet" type="text/css"/>
+        <link href="/img/favicon.jpg" rel="icon" type="image/jpg" />
+    </head>
+    <body>
+    	<div class="container">
+	        <h3 th:text="${tituloForm}"></h3>
+	        <hr>
+	        <div th:text="${creado}" th:if="${creado != null}" class="msg-creado"></div>
+	        <div th:text="${editado}"th:if="${editado != null}" class="msg-editado"></div>
+	        <div th:text="${borrado}"th:if="${borrado != null}" class="msg-borrado"></div>
+                
+                <form class="form-inline" th:action="@{/articulos/buscar}" method="post">
+                    <input class="form-control mr-sm-2" name="buscar" id="buscar" placeholder="Dato a buscar" autofocus>
+                    <input  type="submit" class="btn btn-sm btn-success" value="Buscar" ></input>
+                </form>
+	        
+	        <table class="table table-sm table-hover table-bordered table-striped">
+	            <thead class="thead-dark">
+	                <tr>
+	                    <th>Nro</th>
+	                    <th>Imagen</th>
+	                    <th>Descripción</th>
+	                    <th>Cod.Barras</th>
+	                    <th>Cantidad</th>
+	                    <th>Precio</th>
+	                    <th sec:authorize="hasRole('ROLE_ADMIN')">Acciones</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="a : ${articulos}">
+	                    <td th:text="${a.id}"></td>
+	                    <td >
+	                        <img class="img-fluid img-thumbnail" style="height:96px!important; width:96px;" alt="Imagen no encontrada" th:src="${a.linkImagen}" />
+	                    </td>
+	                    <td th:text="${a.descripcion}"></td>
+	                    <td th:text="${a.codBarras}"></td>
+	                    <td th:text="${a.cantidad}"></td>
+	                    <td th:text="${a.precio}"></td>
+	                    <td sec:authorize="hasRole('ROLE_ADMIN')"> 
+	                        <a class="btn btn-sm btn-info" th:href="@{/articulos/editar/} + ${a.id}" >Editar</a>
+	                        <a class="btn btn-sm btn-danger" th:href="@{/articulos/borrar/} + ${a.id}">Borrar</a>
+	                    </td>
+	
+	                </tr>
+	            </tbody>
+	        </table>
+	        <br>
+	        <a class="btn btn-sm btn-success" th:href="@{/articulos/nuevo}" sec:authorize="hasRole('ROLE_ADMIN')"> Nuevo </a>
+	        &nbsp;
+	        <a class="btn btn-sm btn-danger" th:href="@{/home}">Volver</a>
+                <a class="btn btn-sm btn-danger" th:href="@{/articulos/listado}">Mostrar todos los Articulos</a>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Edición de Artículos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+        <link href="/css/estilo.css" rel="stylesheet" type="text/css"/>
+        <link href="/img/favicon.jpg" rel="icon" type="image/jpg" />
+    </head>
+    <body>
+		<div class="container">
+
+	        <h2 th:text="${titulo}">Titulo</h2>
+	        
+	        <hr>
+	
+	        <form th:action="@{/articulos/guardar}" method="post" th:object="${articulo}">
+
+				<div class="row">
+
+				    <div class="col-md-4 col-sm-12">
+				      <label for="descripion">Nombre</label>
+				      <input type="text" id="descripion" th:field="*{descripcion}" class="form-control" placeholder="Nombre o descripción">
+  	                  <small th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+				    </div>
+
+				    <div class="col-md-4 col-sm-12">
+  		 		      <label for="codBarras">Códido</label>
+				      <input type="text" id="codBarras" th:field="*{codBarras}" class="form-control" placeholder="Código de Barra">
+  	                  <small th:if="${#fields.hasErrors('codBarras')}" th:errors="*{codBarras}"></small>
+				    </div>
+
+				    <div class="col-md-2 col-sm-6">
+				      <label for="cantidad">Stock Actual</label>
+				      <input type="number" id="cantidad" th:field="*{cantidad}" class="form-control" placeholder="Stock actual">
+  	                  <small th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>
+				    </div>
+
+				    <div class="col-md-2 col-sm-6">
+				      <label for="codBarras">Precio</label>
+				      <input type="number" id="precio" th:field="*{precio}" class="form-control" placeholder="Código de Barra">
+  	                  <small th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
+				    </div>
+
+	    	    </div>
+
+				<div class="row mt-2">
+				    <div class="col">
+		                <label for="linkImagen">URL de la Imagen</label>
+		                <input type="text" class="form-control" id="linkImagen" th:field="*{linkImagen}"/>
+		                <small th:if="${#fields.hasErrors('linkImagen')}" th:errors="*{linkImagen}"></small>
+				    </div>
+	    	    </div>
+
+				<div class="row mt-2">
+				    <div class="col">
+			            <input class="btn btn-sm btn-success" type="submit" value="Guardar"/>
+	    		        <input class="btn btn-sm btn-danger" type="button" value="Cancelar" onclick="location.href='/articulos/listado'">
+				    </div>
+	    	    </div>
+	
+	        </form>
+        </div>
+</html>
